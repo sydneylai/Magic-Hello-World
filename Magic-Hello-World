@@ -5,27 +5,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="styles.css" />
-    <!-- 1️⃣ Install Magic SDK -->
     <script src="https://auth.magic.link/sdk"></script>
     <script>
-      /* 2️⃣ Initialize Magic Instance */
       const magic = new Magic('pk_live_1167678B8863E0B2Y');
-
-      /* 3️⃣ Implement Render Function */
       const render = async () => {
-        
-      /* 3. Implement Render Function */
       const render = async () => {
         let html = '';
-
         /*
-          For this tutorial, our callback route is simply "/callback"
+          route is simply "/callback"
         */
         if (window.location.pathname === '/callback') {
           try {
             /* Complete the "authentication callback" */
             await magic.auth.loginWithCredential();
-
+            
             /* Get user metadata including email */
             const userMetadata = await magic.user.getMetadata();
 
@@ -63,26 +56,23 @@
       };
       };
 
-      /* 4️⃣ Implement Login Handler */
       const handleLogin = async e => {
        
-      /* 4. Implement Login Handler */
       const handleLogin = async e => {
         e.preventDefault();
         const email = new FormData(e.target).get('email');
         const redirectURI = `${window.location.origin}/callback`; // 👈 This will be our callback URI
         if (email) {
-          /* One-liner login 🤯 */
+
           await magic.auth.loginWithMagicLink({ email, redirectURI }); // 👈 Notice the additional parameter!
           render();
         }
       };
       };
 
-      /* 5️⃣ Implement Logout Handler */
+
       const handleLogout = async () => {
         
-      /* 5. Implement Logout Handler */
       const handleLogout = async () => {
         await magic.user.logout();
         render();
